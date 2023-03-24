@@ -1,4 +1,6 @@
 import { ReactNode, useCallback, useEffect, useState } from 'react'
+import { Toaster } from 'react-hot-toast'
+import { TxProvider } from 'react/hooks/tx'
 import { SwiftClient } from '../../core'
 import WalletProvider from '../wallet/WalletProvider'
 import SwiftContext from './SwiftContext'
@@ -38,7 +40,10 @@ export default function SwiftProvider({
         connectSigning,
       }}
     >
-      <WalletProvider>{children}</WalletProvider>
+      <Toaster position="top-right" />
+      <WalletProvider>
+        <TxProvider>{children}</TxProvider>
+      </WalletProvider>
     </SwiftContext.Provider>
   )
 }
