@@ -26,7 +26,6 @@ export interface SwiftClientConstructor {
   chainInfo: ChainInfo
   commerceContract: string
   trustContract?: string
-  denom: string
 }
 
 export class SwiftClient {
