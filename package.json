@@ -1,0 +1,25 @@
+{
+  "name": "@swiftprotocol/client",
+  "version": "0.1.2",
+  "description": "Multipurpose query & execution client for Swift Protocol contracts.",
+  "main": "dist/index.js",
+  "repository": "https://github.com/swiftprotocol/client.git",
+  "author": "Josef Leventon <josef@swiftprotocol.zone>",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {
+    "@cosmjs/cosmwasm-stargate": "0.29.1",
+    "@cosmjs/stargate": "0.29.1",
+    "@keplr-wallet/stores": "0.11.49",
+    "@keplr-wallet/types": "0.11.49",
+    "@swiftprotocol/types": "0.0.3-pre03",
+    "react": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/elliptic": "^6.4.14",
+    "@types/react": "^18.0.29"
+  }
+}
