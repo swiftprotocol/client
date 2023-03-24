@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "lib": ["es5", "es6", "dom"],
+    "outDir": "./dist/",
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "target": "es6",
+    "moduleResolution": "node16",
+    "esModuleInterop": true,
+    "baseUrl": ".",
+    "module": "es2020",
+    "jsx": "react-jsx"
+  },
+  "files": ["index.ts"],
+  "include": ["core/**/*", "react/**/*"],
+  "exclude": ["node_modules", "**/*.spec.ts"]
+}
