@@ -10,11 +10,9 @@ import { Window as KeplrWindow } from '@keplr-wallet/types'
 import {
   CommerceClient,
   CommerceQueryClient,
-} from '@swiftprotocol/types/types/Commerce.client'
-import {
   TrustClient,
   TrustQueryClient,
-} from '@swiftprotocol/types/types/Trust.client'
+} from '@swiftprotocol/types'
 import getSigningCosmWasmClient from './cosmwasm/getSigningCosmWasmClient'
 import Wallet from './wallet/index'
 

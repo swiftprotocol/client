@@ -17,7 +17,7 @@
     "@heroicons/react": "^2.0.16",
     "@keplr-wallet/stores": "0.11.49",
     "@keplr-wallet/types": "0.11.49",
-    "@swiftprotocol/types": "^0.0.4",
+    "@swiftprotocol/types": "^0.2.2",
     "react": "^18.2.0",
     "react-hot-toast": "^2.4.0"
   },

@@ -2427,10 +2427,10 @@
   resolved "https://registry.yarnpkg.com/@sinclair/typebox/-/typebox-0.24.51.tgz#645f33fe4e02defe26f2f5c0410e1c094eac7f5f"
   integrity sha512-1P1OROm/rdubP5aFDSZQILU0vrLCJ4fvHt6EoqHEM+2D/G5MK3bIaymUKLit8Js9gbns5UyJnkP/TZROLw4tUA==
 
-"@swiftprotocol/types@^0.0.4":
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/@swiftprotocol/types/-/types-0.0.4.tgz#fd1d5e29cd12105cd6b1984325c78bd2990c1d80"
-  integrity sha512-HGUDYyFD5RGPHhjgihFTa2AJAgzBo9CZYYRyDK51uM4rJLlRqnBKiEyRzEp0v2BO02TxOesLkeHcqiGZxwbTfg==
+"@swiftprotocol/types@^0.2.2":
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/@swiftprotocol/types/-/types-0.2.2.tgz#903374986b5a254bcaf41d9904ff5cfd527e3d7b"
+  integrity sha512-CLnqY71a4LmEaHbJ6EQXe+hWkYWq4fTYLbz/5h8IuBM+Ngm/Ag8HZqdO6GJgi/enH4vAV/cZ6PVoIEN+FQkGrg==
   dependencies:
     "@cosmjs/amino" "0.29.1"
     "@cosmjs/cosmwasm-stargate" "0.29.1"
