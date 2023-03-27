@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 import { Fragment as _Fragment, jsx as _jsx } from "react/jsx-runtime";
 import { createContext, useContext } from 'react';
-import { TxRaw } from 'cosmjs-types/cosmos/tx/v1beta1/tx';
+import { TxRaw } from 'cosmjs-types/cosmos/tx/v1beta1/tx.js';
 import { isDeliverTxSuccess } from '@cosmjs/stargate';
 import { coins } from '@cosmjs/stargate';
 import useToaster, { ToastTypes } from './useToaster.js';

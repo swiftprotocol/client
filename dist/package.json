@@ -1,6 +1,6 @@
 {
 	"name": "@swiftprotocol/client",
-	"version": "0.3.7",
+	"version": "0.3.8",
 	"description": "Multipurpose query & execution client for Swift Protocol contracts.",
 	"type": "module",
 	"main": "index.js",
@@ -9,6 +9,7 @@
 	"author": "Josef Leventon <josef@swiftprotocol.zone>",
 	"dependencies": {
 		"@cosmjs/cosmwasm-stargate": "0.29.1",
+		"@cosmjs/proto-signing": "^0.30.1",
 		"@cosmjs/stargate": "0.29.1",
 		"@heroicons/react": "^2.0.16",
 		"@keplr-wallet/stores": "0.11.49",

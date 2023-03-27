@@ -1,5 +1,5 @@
 import { createContext, ReactNode, useContext } from 'react'
-import { TxRaw } from 'cosmjs-types/cosmos/tx/v1beta1/tx'
+import { TxRaw } from 'cosmjs-types/cosmos/tx/v1beta1/tx.js'
 import { isDeliverTxSuccess } from '@cosmjs/stargate'
 import { coins } from '@cosmjs/stargate'
 import useToaster, { ToastPayload, ToastTypes } from './useToaster.js'
