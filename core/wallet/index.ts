@@ -1,6 +1,6 @@
-import type { WalletInfo } from './types'
+import type { WalletInfo } from './types.js'
 import type { CosmWasmClient } from '@cosmjs/cosmwasm-stargate'
-import getWallet from './getWallet'
+import getWallet from './getWallet.js'
 import { CommerceQueryClient } from '@swiftprotocol/types'
 
 export default class Wallet {

@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { ToastPayload, ToastTypes } from './useToaster';
+import { ToastPayload, ToastTypes } from './useToaster.js';
 export interface Msg {
     typeUrl: string;
     value: any;

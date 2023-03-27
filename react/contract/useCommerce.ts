@@ -1,4 +1,4 @@
-import useSwiftClient from '../client/useSwiftClient'
+import useSwiftClient from '../client/useSwiftClient.js'
 
 export default function useCommerce() {
   const { client } = useSwiftClient()

@@ -6,7 +6,7 @@ import {
   ExclamationTriangleIcon,
 } from '@heroicons/react/24/solid'
 import toast, { Toaster, ToastOptions } from 'react-hot-toast'
-import { classNames } from '../util/css'
+import { classNames } from '../util/css.js'
 
 function Spinner({ className }: { className?: string }) {
   return (

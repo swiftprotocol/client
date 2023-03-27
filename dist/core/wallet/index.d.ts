@@ -1,4 +1,4 @@
-import type { WalletInfo } from './types';
+import type { WalletInfo } from './types.js';
 import type { CosmWasmClient } from '@cosmjs/cosmwasm-stargate';
 export default class Wallet {
     cosmWasmClient: CosmWasmClient;

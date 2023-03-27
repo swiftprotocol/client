@@ -4,7 +4,7 @@ import type {
   SigningCosmWasmClient,
 } from '@cosmjs/cosmwasm-stargate'
 
-import getCosmWasmClient from './cosmwasm/getCosmWasmClient'
+import getCosmWasmClient from './cosmwasm/getCosmWasmClient.js'
 
 import { Window as KeplrWindow } from '@keplr-wallet/types'
 import {
@@ -13,8 +13,8 @@ import {
   TrustClient,
   TrustQueryClient,
 } from '@swiftprotocol/types'
-import getSigningCosmWasmClient from './cosmwasm/getSigningCosmWasmClient'
-import Wallet from './wallet/index'
+import getSigningCosmWasmClient from './cosmwasm/getSigningCosmWasmClient.js'
+import Wallet from './wallet/index.js'
 
 declare global {
   interface Window extends KeplrWindow {}

@@ -1,5 +1,5 @@
 import { getKeplrFromWindow } from '@keplr-wallet/stores'
-import { WalletInfo } from './types'
+import { WalletInfo } from './types.js'
 
 export default async function getWallet(
   chainId: string

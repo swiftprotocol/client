@@ -10,9 +10,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useCallback, useEffect, useState } from 'react';
 import { Toaster } from 'react-hot-toast';
-import { TxProvider } from '../hooks/tx';
-import WalletProvider from '../wallet/WalletProvider';
-import SwiftContext from './SwiftContext';
+import { TxProvider } from '../hooks/tx.js';
+import WalletProvider from '../wallet/WalletProvider.js';
+import SwiftContext from './SwiftContext.js';
 export default function SwiftProvider({ client, children, }) {
     const [, updateState] = useState();
     const forceUpdate = useCallback(() => updateState({}), []);

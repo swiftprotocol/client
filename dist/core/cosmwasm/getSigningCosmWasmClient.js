@@ -18,7 +18,7 @@ import {
 // createWasmAminoConverters,
 SigningCosmWasmClient, } from '@cosmjs/cosmwasm-stargate';
 import { getKeplrFromWindow } from '@keplr-wallet/stores';
-import { gasPrice } from '../config/gas';
+import { gasPrice } from '../config/gas.js';
 export default function getSigningCosmWasmClient(chainInfo) {
     return __awaiter(this, void 0, void 0, function* () {
         if (!chainInfo) {

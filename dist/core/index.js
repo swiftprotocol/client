@@ -7,10 +7,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import getCosmWasmClient from './cosmwasm/getCosmWasmClient';
+import getCosmWasmClient from './cosmwasm/getCosmWasmClient.js';
 import { CommerceClient, CommerceQueryClient, TrustClient, TrustQueryClient, } from '@swiftprotocol/types';
-import getSigningCosmWasmClient from './cosmwasm/getSigningCosmWasmClient';
-import Wallet from './wallet/index';
+import getSigningCosmWasmClient from './cosmwasm/getSigningCosmWasmClient.js';
+import Wallet from './wallet/index.js';
 export class SwiftClient {
     constructor({ chainInfo, commerceContract, trustContract, }) {
         this._cosmWasmClient = null;

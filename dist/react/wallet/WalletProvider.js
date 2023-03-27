@@ -9,8 +9,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 import { jsx as _jsx } from "react/jsx-runtime";
 import { useCallback, useEffect, useState } from 'react';
-import useSwiftClient from '../client/useSwiftClient';
-import WalletContext from './WalletContext';
+import useSwiftClient from '../client/useSwiftClient.js';
+import WalletContext from './WalletContext.js';
 export default function WalletProvider({ children }) {
     const { client, connectSigning } = useSwiftClient();
     const [wallet, setWallet] = useState();

@@ -2,9 +2,9 @@ import { createContext, ReactNode, useContext } from 'react'
 import { TxRaw } from 'cosmjs-types/cosmos/tx/v1beta1/tx'
 import { isDeliverTxSuccess } from '@cosmjs/stargate'
 import { coins } from '@cosmjs/stargate'
-import useToaster, { ToastPayload, ToastTypes } from './useToaster'
-import useSwiftClient from '../client/useSwiftClient'
-import useWallet from '../wallet/useWallet'
+import useToaster, { ToastPayload, ToastTypes } from './useToaster.js'
+import useSwiftClient from '../client/useSwiftClient.js'
+import useWallet from '../wallet/useWallet.js'
 
 // Context to handle simple signingClient transactions
 export interface Msg {

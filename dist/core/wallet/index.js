@@ -7,7 +7,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import getWallet from './getWallet';
+import getWallet from './getWallet.js';
 import { CommerceQueryClient } from '@swiftprotocol/types';
 export default class Wallet {
     constructor({ cosmWasmClient, commerceContract, chainId, }) {

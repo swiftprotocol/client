@@ -1,9 +1,9 @@
 import { ReactNode, useCallback, useEffect, useState } from 'react'
 import { Toaster } from 'react-hot-toast'
-import { TxProvider } from '../hooks/tx'
-import { SwiftClient } from '../../core'
-import WalletProvider from '../wallet/WalletProvider'
-import SwiftContext from './SwiftContext'
+import { TxProvider } from '../hooks/tx.js'
+import { SwiftClient } from '../../core/index.js'
+import WalletProvider from '../wallet/WalletProvider.js'
+import SwiftContext from './SwiftContext.js'
 
 export default function SwiftProvider({
   client,

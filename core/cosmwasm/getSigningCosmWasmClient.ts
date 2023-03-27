@@ -10,7 +10,7 @@ import {
   SigningCosmWasmClient,
 } from '@cosmjs/cosmwasm-stargate'
 import { getKeplrFromWindow } from '@keplr-wallet/stores'
-import { gasPrice } from '../config/gas'
+import { gasPrice } from '../config/gas.js'
 import type { ChainInfo } from '@keplr-wallet/types'
 
 export default async function getSigningCosmWasmClient(

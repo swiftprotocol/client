@@ -1,5 +1,5 @@
 import React from 'react'
-import { WalletInfo } from '../../core/wallet/types'
+import { WalletInfo } from '../../core/wallet/types.js'
 
 type WalletContextValue = {
   wallet?: WalletInfo

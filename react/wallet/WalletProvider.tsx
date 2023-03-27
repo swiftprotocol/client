@@ -1,7 +1,7 @@
 import { ReactNode, useCallback, useEffect, useState } from 'react'
-import { WalletInfo } from '../../core/wallet/types'
-import useSwiftClient from '../client/useSwiftClient'
-import WalletContext from './WalletContext'
+import { WalletInfo } from '../../core/wallet/types.js'
+import useSwiftClient from '../client/useSwiftClient.js'
+import WalletContext from './WalletContext.js'
 
 export default function WalletProvider({ children }: { children: ReactNode }) {
   const { client, connectSigning } = useSwiftClient()
