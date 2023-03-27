@@ -1,0 +1,9 @@
+{
+  "remove": {
+    "devDependencies": "*",
+    "scripts": "*",
+    "type": true
+  },
+  "publisher": "npm",
+  "output": "./dist"
+}
