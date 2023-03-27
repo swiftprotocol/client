@@ -1,10 +1,10 @@
 {
   "name": "@swiftprotocol/client",
-  "version": "0.3.6",
+  "version": "0.3.7",
   "description": "Multipurpose query & execution client for Swift Protocol contracts.",
   "type": "module",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "index.js",
+  "types": "index.d.ts",
   "repository": "https://github.com/swiftprotocol/client.git",
   "author": "Josef Leventon <josef@swiftprotocol.zone>",
   "scripts": {
