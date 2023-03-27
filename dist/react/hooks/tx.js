@@ -14,7 +14,7 @@ import { isDeliverTxSuccess } from '@cosmjs/stargate';
 import { coins } from '@cosmjs/stargate';
 import useToaster, { ToastTypes } from './useToaster';
 import useSwiftClient from '../client/useSwiftClient';
-import useWallet from 'react/wallet/useWallet';
+import useWallet from '../wallet/useWallet';
 export const Tx = createContext({
     tx: () => new Promise(() => { }),
 });

@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useCallback, useEffect, useState } from 'react';
 import { Toaster } from 'react-hot-toast';
-import { TxProvider } from 'react/hooks/tx';
+import { TxProvider } from '../hooks/tx';
 import WalletProvider from '../wallet/WalletProvider';
 import SwiftContext from './SwiftContext';
 export default function SwiftProvider({ client, children, }) {
