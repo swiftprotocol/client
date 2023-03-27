@@ -4,7 +4,7 @@ import { isDeliverTxSuccess } from '@cosmjs/stargate'
 import { coins } from '@cosmjs/stargate'
 import useToaster, { ToastPayload, ToastTypes } from './useToaster'
 import useSwiftClient from '../client/useSwiftClient'
-import useWallet from 'react/wallet/useWallet'
+import useWallet from '../wallet/useWallet'
 
 // Context to handle simple signingClient transactions
 export interface Msg {
