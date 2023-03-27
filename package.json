@@ -1,7 +1,8 @@
 {
   "name": "@swiftprotocol/client",
-  "version": "0.3.0",
+  "version": "0.3.4",
   "description": "Multipurpose query & execution client for Swift Protocol contracts.",
+  "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "repository": "https://github.com/swiftprotocol/client.git",

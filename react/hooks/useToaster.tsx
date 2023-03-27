@@ -76,7 +76,7 @@ function customToast(
   }
 
   return toast.custom(
-    (t) => (
+    (t: any) => (
       <div
         onLoad={() => {
           setTimeout(() => toast.dismiss(t.id), 3000)

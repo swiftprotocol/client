@@ -1,4 +1,4 @@
 export default function useSwiftClient(): {
-    client: import("../../index").SwiftClient;
+    client: import("../..").SwiftClient;
     connectSigning: () => void;
 };
