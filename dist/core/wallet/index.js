@@ -19,7 +19,8 @@ export default class Wallet {
     getBalance() {
         return __awaiter(this, void 0, void 0, function* () {
             if (this._walletInfo && this.address) {
-                this._walletInfo.balance = yield this.cosmWasmClient.getBalance(this.address, this.denom);
+                const denom = yield this.getDenom();
+                this._walletInfo.balance = yield this.cosmWasmClient.getBalance(this.address, denom);
             }
             return this.balance;
         });
@@ -27,7 +28,7 @@ export default class Wallet {
     getDenom() {
         return __awaiter(this, void 0, void 0, function* () {
             if (this.address && this.commerceContract) {
-                const commerceClient = new CommerceQueryClient(this.cosmWasmClient, this.address);
+                const commerceClient = new CommerceQueryClient(this.cosmWasmClient, this.commerceContract);
                 const { config } = yield commerceClient.config();
                 this._denom = config.token.denom;
             }

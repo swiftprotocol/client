@@ -27,9 +27,10 @@ export default class Wallet {
 
   public async getBalance() {
     if (this._walletInfo && this.address) {
+      const denom = await this.getDenom()
       this._walletInfo.balance = await this.cosmWasmClient.getBalance(
         this.address,
-        this.denom
+        denom
       )
     }
 
@@ -40,7 +41,7 @@ export default class Wallet {
     if (this.address && this.commerceContract) {
       const commerceClient = new CommerceQueryClient(
         this.cosmWasmClient,
-        this.address
+        this.commerceContract
       )
       const { config } = await commerceClient.config()
       this._denom = config.token.denom
