@@ -21,7 +21,7 @@ export const Tx = createContext({
 export function TxProvider({ children }) {
     const { client } = useSwiftClient();
     const { refreshBalance } = useWallet();
-    const signingCosmwasmClient = client === null || client === void 0 ? void 0 : client.signingCosmWasmClient;
+    const signingCosmWasmClient = client === null || client === void 0 ? void 0 : client.signingCosmWasmClient;
     const toaster = useToaster();
     // Method to sign & broadcast transaction
     const tx = (msgs, options, callback) => __awaiter(this, void 0, void 0, function* () {
@@ -34,7 +34,7 @@ export function TxProvider({ children }) {
         let signed;
         try {
             if ((_a = client === null || client === void 0 ? void 0 : client.wallet) === null || _a === void 0 ? void 0 : _a.address) {
-                signed = yield (signingCosmwasmClient === null || signingCosmwasmClient === void 0 ? void 0 : signingCosmwasmClient.sign((_b = client === null || client === void 0 ? void 0 : client.wallet) === null || _b === void 0 ? void 0 : _b.address, msgs, fee, ''));
+                signed = yield (signingCosmWasmClient === null || signingCosmWasmClient === void 0 ? void 0 : signingCosmWasmClient.sign((_b = client === null || client === void 0 ? void 0 : client.wallet) === null || _b === void 0 ? void 0 : _b.address, msgs, fee, ''));
             }
         }
         catch (e) {
@@ -50,8 +50,8 @@ export function TxProvider({ children }) {
             title: 'Broadcasting transaction...',
             type: ToastTypes.Pending,
         }, { duration: 999999 });
-        if (signingCosmwasmClient && signed) {
-            yield signingCosmwasmClient
+        if (signingCosmWasmClient && signed) {
+            yield signingCosmWasmClient
                 .broadcastTx(Uint8Array.from(TxRaw.encode(signed).finish()))
                 .then((res) => {
                 var _a, _b, _c, _d;

@@ -12,7 +12,7 @@ import { CommerceClient, CommerceQueryClient, TrustClient, TrustQueryClient, } f
 import getSigningCosmWasmClient from './cosmwasm/getSigningCosmWasmClient.js';
 import Wallet from './wallet/index.js';
 export class SwiftClient {
-    constructor({ chainInfo, commerceContract, trustContract, walletType, }) {
+    constructor({ chainInfo, commerceContract, trustContract, }) {
         this._cosmWasmClient = null;
         this.signingCosmWasmClient = null;
         this.commerceClient = null;
@@ -23,7 +23,6 @@ export class SwiftClient {
         this.chainInfo = chainInfo;
         this.commerceContract = commerceContract;
         this.trustContract = trustContract || null;
-        this.walletType = walletType || null;
     }
     connect() {
         return __awaiter(this, void 0, void 0, function* () {
@@ -35,7 +34,7 @@ export class SwiftClient {
             yield this.createTrustClient();
         });
     }
-    connectSigning() {
+    connectSigning(walletType) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 yield this.connectSigningClient();
@@ -43,7 +42,7 @@ export class SwiftClient {
                     throw new Error('Could not load CosmWasmClient');
                 if (!this.signingCosmWasmClient)
                     throw new Error('Could not load SigningCosmWasmClient');
-                const wallet = yield this.wallet.getWallet();
+                const wallet = yield this.wallet.getWallet(walletType);
                 yield this.createCommerceClient();
                 yield this.createTrustClient();
                 return wallet;
@@ -111,7 +110,6 @@ export class SwiftClient {
             cosmWasmClient: this.cosmWasmClient,
             commerceContract: this.commerceContract,
             chainId: this.chainInfo.chainId,
-            walletType: this.walletType,
         });
         return this._wallet;
     }

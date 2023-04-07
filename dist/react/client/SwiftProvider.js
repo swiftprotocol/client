@@ -16,9 +16,9 @@ import SwiftContext from './SwiftContext.js';
 export default function SwiftProvider({ client, children, }) {
     const [, updateState] = useState();
     const forceUpdate = useCallback(() => updateState({}), []);
-    const connectSigning = useCallback(() => __awaiter(this, void 0, void 0, function* () {
+    const connectSigning = useCallback((walletType) => __awaiter(this, void 0, void 0, function* () {
         if (client) {
-            yield (client === null || client === void 0 ? void 0 : client.connectSigning());
+            yield (client === null || client === void 0 ? void 0 : client.connectSigning(walletType));
             forceUpdate();
         }
     }), [client, forceUpdate]);

@@ -17,22 +17,34 @@ export default function WalletProvider({ children }) {
     const logout = useCallback(() => __awaiter(this, void 0, void 0, function* () {
         localStorage.removeItem('address');
         localStorage.removeItem('walletName');
+        localStorage.removeItem('walletType');
         setWallet(undefined);
         yield (client === null || client === void 0 ? void 0 : client.disconnectSigning());
     }), [client]);
-    const login = useCallback(() => __awaiter(this, void 0, void 0, function* () {
+    const login = useCallback((walletType) => __awaiter(this, void 0, void 0, function* () {
         yield (client === null || client === void 0 ? void 0 : client.connect());
-        yield connectSigning();
+        yield connectSigning(walletType);
         const w = client === null || client === void 0 ? void 0 : client.wallet;
-        if (w === null || w === void 0 ? void 0 : w.wallet)
+        if (w === null || w === void 0 ? void 0 : w.wallet) {
             setWallet(w.wallet);
+            localStorage.setItem('walletType', walletType);
+        }
     }), [client, connectSigning]);
     // Keplr Wallet Changed
     useEffect(() => {
         window.addEventListener('keplr_keystorechange', () => {
             console.log('Key store in Keplr is changed. You may need to refetch the account info.');
             logout().then(() => {
-                login();
+                login('keplr');
+            });
+        });
+    }, [login, logout]);
+    // Leap Wallet Changed
+    useEffect(() => {
+        window.addEventListener('leap_keystorechange', () => {
+            console.log('Key store in Leap is changed. You may need to refetch the account info.');
+            logout().then(() => {
+                login('leap');
             });
         });
     }, [login, logout]);
@@ -42,6 +54,7 @@ export default function WalletProvider({ children }) {
             return __awaiter(this, void 0, void 0, function* () {
                 const address = localStorage.getItem('address');
                 const name = localStorage.getItem('walletName');
+                const type = localStorage.getItem('walletType');
                 if (client && address && name) {
                     yield (client === null || client === void 0 ? void 0 : client.connect());
                     client.wallet.address = address;
@@ -51,7 +64,7 @@ export default function WalletProvider({ children }) {
                         name,
                         balance,
                     });
-                    connectSigning();
+                    connectSigning(type);
                     return;
                 }
             });

@@ -10,6 +10,7 @@ export default function WalletProvider({ children }: { children: ReactNode }) {
   const logout = useCallback(async () => {
     localStorage.removeItem('address')
     localStorage.removeItem('walletName')
+    localStorage.removeItem('walletType')
     setWallet(undefined)
     await client?.disconnectSigning()
   }, [client])
@@ -17,10 +18,13 @@ export default function WalletProvider({ children }: { children: ReactNode }) {
   const login = useCallback(
     async (walletType: 'keplr' | 'leap') => {
       await client?.connect()
-      await connectSigning()
+      await connectSigning(walletType)
 
       const w = client?.wallet
-      if (w?.wallet) setWallet(w.wallet)
+      if (w?.wallet) {
+        setWallet(w.wallet)
+        localStorage.setItem('walletType', walletType)
+      }
     },
     [client, connectSigning]
   )
@@ -56,6 +60,7 @@ export default function WalletProvider({ children }: { children: ReactNode }) {
     async function loadLocalWallet() {
       const address = localStorage.getItem('address')
       const name = localStorage.getItem('walletName')
+      const type = localStorage.getItem('walletType')
 
       if (client && address && name) {
         await client?.connect()
@@ -68,7 +73,7 @@ export default function WalletProvider({ children }: { children: ReactNode }) {
           balance,
         })
 
-        connectSigning()
+        connectSigning(type as 'keplr' | 'leap')
         return
       }
     }

@@ -15,12 +15,15 @@ export default function SwiftProvider({
   const [, updateState] = useState<{}>()
   const forceUpdate = useCallback(() => updateState({}), [])
 
-  const connectSigning = useCallback(async () => {
-    if (client) {
-      await client?.connectSigning()
-      forceUpdate()
-    }
-  }, [client, forceUpdate])
+  const connectSigning = useCallback(
+    async (walletType: 'keplr' | 'leap') => {
+      if (client) {
+        await client?.connectSigning(walletType)
+        forceUpdate()
+      }
+    },
+    [client, forceUpdate]
+  )
 
   // Connect client
   useEffect(() => {

@@ -10,12 +10,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 import getWallet from './getWallet.js';
 import { CommerceQueryClient } from '@swiftprotocol/types';
 export default class Wallet {
-    constructor({ cosmWasmClient, commerceContract, chainId, walletType, }) {
+    constructor({ cosmWasmClient, commerceContract, chainId, }) {
         this._walletInfo = null;
         this.cosmWasmClient = cosmWasmClient;
         this.commerceContract = commerceContract;
         this.chainId = chainId;
-        this.walletType = walletType;
     }
     getBalance() {
         return __awaiter(this, void 0, void 0, function* () {
@@ -36,10 +35,10 @@ export default class Wallet {
             return this.denom;
         });
     }
-    getWallet() {
+    getWallet(walletType) {
         return __awaiter(this, void 0, void 0, function* () {
             if (!this._walletInfo) {
-                const wallet = yield getWallet(this.chainId, this.walletType);
+                const wallet = yield getWallet(this.chainId, walletType);
                 this._walletInfo = wallet;
                 yield this.getBalance();
             }

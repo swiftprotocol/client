@@ -13,7 +13,6 @@ export interface SwiftClientConstructor {
     chainInfo: ChainInfo;
     commerceContract: string;
     trustContract?: string;
-    walletType?: 'keplr' | 'leap';
 }
 export declare class SwiftClient {
     private _cosmWasmClient;
@@ -25,11 +24,10 @@ export declare class SwiftClient {
     commerceContract: string;
     trustContract: string | null;
     chainInfo: ChainInfo;
-    walletType: 'keplr' | 'leap' | null;
     private _wallet;
-    constructor({ chainInfo, commerceContract, trustContract, walletType, }: SwiftClientConstructor);
+    constructor({ chainInfo, commerceContract, trustContract, }: SwiftClientConstructor);
     connect(): Promise<void>;
-    connectSigning(): Promise<import("./wallet/types.js").WalletInfo>;
+    connectSigning(walletType: 'keplr' | 'leap'): Promise<import("./wallet/types.js").WalletInfo>;
     disconnectSigning(): Promise<void>;
     connectSigningClient(): Promise<SigningCosmWasmClient>;
     private createCommerceClient;

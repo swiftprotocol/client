@@ -2,7 +2,7 @@ import React from 'react';
 import { WalletInfo } from '../../core/wallet/types.js';
 declare type WalletContextValue = {
     wallet?: WalletInfo;
-    login: () => void;
+    login: (walletType: 'keplr' | 'leap') => void;
     logout: () => void;
     refreshBalance: () => void;
 };

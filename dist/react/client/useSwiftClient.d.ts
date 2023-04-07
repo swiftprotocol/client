@@ -1,4 +1,4 @@
 export default function useSwiftClient(): {
     client: import("../../index.js").SwiftClient;
-    connectSigning: () => void;
+    connectSigning: (walletType: "keplr" | "leap") => void;
 };

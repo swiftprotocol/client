@@ -3,7 +3,7 @@ import { SwiftClient } from '../../core/index.js'
 
 export default React.createContext<{
   client: SwiftClient | null
-  connectSigning: () => void
+  connectSigning: (walletType: 'keplr' | 'leap') => void
 }>({
   client: null,
   connectSigning: () => {},
