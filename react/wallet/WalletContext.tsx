@@ -3,7 +3,7 @@ import { WalletInfo } from '../../core/wallet/types.js'
 
 type WalletContextValue = {
   wallet?: WalletInfo
-  login: () => void
+  login: (walletType: 'keplr' | 'leap') => void
   logout: () => void
   refreshBalance: () => void
 }

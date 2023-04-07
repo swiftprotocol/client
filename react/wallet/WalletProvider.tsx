@@ -14,13 +14,16 @@ export default function WalletProvider({ children }: { children: ReactNode }) {
     await client?.disconnectSigning()
   }, [client])
 
-  const login = useCallback(async () => {
-    await client?.connect()
-    await connectSigning()
+  const login = useCallback(
+    async (walletType: 'keplr' | 'leap') => {
+      await client?.connect()
+      await connectSigning()
 
-    const w = client?.wallet
-    if (w?.wallet) setWallet(w.wallet)
-  }, [client, connectSigning])
+      const w = client?.wallet
+      if (w?.wallet) setWallet(w.wallet)
+    },
+    [client, connectSigning]
+  )
 
   // Keplr Wallet Changed
   useEffect(() => {
@@ -30,7 +33,20 @@ export default function WalletProvider({ children }: { children: ReactNode }) {
       )
 
       logout().then(() => {
-        login()
+        login('keplr')
+      })
+    })
+  }, [login, logout])
+
+  // Leap Wallet Changed
+  useEffect(() => {
+    window.addEventListener('leap_keystorechange', () => {
+      console.log(
+        'Key store in Leap is changed. You may need to refetch the account info.'
+      )
+
+      logout().then(() => {
+        login('leap')
       })
     })
   }, [login, logout])

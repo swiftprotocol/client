@@ -33,7 +33,7 @@ export const Tx = createContext<TxContext>({
 export function TxProvider({ children }: { children: ReactNode }) {
   const { client } = useSwiftClient()
   const { refreshBalance } = useWallet()
-  const signingCosmwasmClient = client?.signingCosmWasmClient
+  const signingCosmWasmClient = client?.signingCosmWasmClient
 
   const toaster = useToaster()
 
@@ -48,7 +48,7 @@ export function TxProvider({ children }: { children: ReactNode }) {
     let signed
     try {
       if (client?.wallet?.address) {
-        signed = await signingCosmwasmClient?.sign(
+        signed = await signingCosmWasmClient?.sign(
           client?.wallet?.address,
           msgs,
           fee,
@@ -74,8 +74,8 @@ export function TxProvider({ children }: { children: ReactNode }) {
       { duration: 999999 }
     )
 
-    if (signingCosmwasmClient && signed) {
-      await signingCosmwasmClient
+    if (signingCosmWasmClient && signed) {
+      await signingCosmWasmClient
         .broadcastTx(Uint8Array.from(TxRaw.encode(signed).finish()))
         .then((res) => {
           toaster.dismiss(broadcastToastId)

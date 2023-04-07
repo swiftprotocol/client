@@ -7,7 +7,6 @@ export default class Wallet {
   cosmWasmClient: CosmWasmClient
   commerceContract: string
   chainId: string
-  walletType: 'keplr' | 'leap'
 
   private _denom: string
   private _walletInfo: WalletInfo | null = null
@@ -16,17 +15,14 @@ export default class Wallet {
     cosmWasmClient,
     commerceContract,
     chainId,
-    walletType,
   }: {
     cosmWasmClient: CosmWasmClient
     commerceContract: string
     chainId: string
-    walletType: 'keplr' | 'leap'
   }) {
     this.cosmWasmClient = cosmWasmClient
     this.commerceContract = commerceContract
     this.chainId = chainId
-    this.walletType = walletType
   }
 
   public async getBalance() {
@@ -54,9 +50,9 @@ export default class Wallet {
     return this.denom
   }
 
-  public async getWallet() {
+  public async getWallet(walletType: 'keplr' | 'leap') {
     if (!this._walletInfo) {
-      const wallet = await getWallet(this.chainId, this.walletType)
+      const wallet = await getWallet(this.chainId, walletType)
       this._walletInfo = wallet
 
       await this.getBalance()

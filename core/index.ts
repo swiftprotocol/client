@@ -6,7 +6,6 @@ import type {
 
 import getCosmWasmClient from './cosmwasm/getCosmWasmClient.js'
 
-import { Window as KeplrWindow } from '@keplr-wallet/types'
 import {
   CommerceClient,
   CommerceQueryClient,
@@ -28,7 +27,6 @@ export interface SwiftClientConstructor {
   chainInfo: ChainInfo
   commerceContract: string
   trustContract?: string
-  walletType?: 'keplr' | 'leap'
 }
 
 export class SwiftClient {
@@ -44,7 +42,6 @@ export class SwiftClient {
   public commerceContract: string
   public trustContract: string | null
   public chainInfo: ChainInfo
-  public walletType: 'keplr' | 'leap' | null
 
   private _wallet: Wallet | null = null
 
@@ -52,12 +49,10 @@ export class SwiftClient {
     chainInfo,
     commerceContract,
     trustContract,
-    walletType,
   }: SwiftClientConstructor) {
     this.chainInfo = chainInfo
     this.commerceContract = commerceContract
     this.trustContract = trustContract || null
-    this.walletType = walletType || null
   }
 
   public async connect() {
@@ -71,7 +66,7 @@ export class SwiftClient {
     await this.createTrustClient()
   }
 
-  public async connectSigning() {
+  public async connectSigning(walletType: 'keplr' | 'leap') {
     try {
       await this.connectSigningClient()
 
@@ -80,7 +75,7 @@ export class SwiftClient {
       if (!this.signingCosmWasmClient)
         throw new Error('Could not load SigningCosmWasmClient')
 
-      const wallet = await this.wallet.getWallet()
+      const wallet = await this.wallet.getWallet(walletType)
 
       await this.createCommerceClient()
       await this.createTrustClient()
@@ -158,7 +153,6 @@ export class SwiftClient {
       cosmWasmClient: this.cosmWasmClient,
       commerceContract: this.commerceContract,
       chainId: this.chainInfo.chainId,
-      walletType: this.walletType,
     })
 
     return this._wallet
