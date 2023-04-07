@@ -7,23 +7,30 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { getKeplrFromWindow } from '@keplr-wallet/stores';
-export default function getWallet(chainId) {
+export default function getWallet(chainId, walletType) {
     return __awaiter(this, void 0, void 0, function* () {
-        const keplr = yield getKeplrFromWindow();
-        if (!keplr) {
+        switch (walletType) {
+            case 'keplr':
+                window.wallet = window.keplr;
+                break;
+            case 'leap':
+                window.wallet = window.leap;
+                break;
+        }
+        const wallet = window.wallet;
+        if (!wallet) {
             return null;
         }
         // @ts-ignore
-        if (window.keplr) {
+        if (window.wallet) {
             // @ts-ignore
-            window.keplr.defaultOptions = {
+            window.wallet.defaultOptions = {
                 sign: {
                     preferNoSetFee: true,
                 },
             };
         }
-        const walletInfo = yield keplr.getKey(chainId);
+        const walletInfo = yield wallet.getKey(chainId);
         return {
             address: walletInfo.bech32Address,
             name: walletInfo.name,

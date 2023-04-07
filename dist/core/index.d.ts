@@ -1,16 +1,19 @@
-import type { ChainInfo } from '@keplr-wallet/types';
+import type { ChainInfo, Keplr } from '@keplr-wallet/types';
 import type { CosmWasmClient, SigningCosmWasmClient } from '@cosmjs/cosmwasm-stargate';
-import { Window as KeplrWindow } from '@keplr-wallet/types';
 import { CommerceClient, CommerceQueryClient, TrustClient, TrustQueryClient } from '@swiftprotocol/types';
 import Wallet from './wallet/index.js';
 declare global {
-    interface Window extends KeplrWindow {
+    interface Window {
+        wallet: Keplr;
+        keplr: Keplr;
+        leap: Keplr;
     }
 }
 export interface SwiftClientConstructor {
     chainInfo: ChainInfo;
     commerceContract: string;
     trustContract?: string;
+    walletType?: 'keplr' | 'leap';
 }
 export declare class SwiftClient {
     private _cosmWasmClient;
@@ -22,8 +25,9 @@ export declare class SwiftClient {
     commerceContract: string;
     trustContract: string | null;
     chainInfo: ChainInfo;
+    walletType: 'keplr' | 'leap' | null;
     private _wallet;
-    constructor({ chainInfo, commerceContract, trustContract, }: SwiftClientConstructor);
+    constructor({ chainInfo, commerceContract, trustContract, walletType, }: SwiftClientConstructor);
     connect(): Promise<void>;
     connectSigning(): Promise<import("./wallet/types.js").WalletInfo>;
     disconnectSigning(): Promise<void>;

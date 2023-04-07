@@ -1,24 +1,33 @@
-import { getKeplrFromWindow } from '@keplr-wallet/stores'
 import { WalletInfo } from './types.js'
 
 export default async function getWallet(
-  chainId: string
+  chainId: string,
+  walletType: 'keplr' | 'leap'
 ): Promise<WalletInfo | null> {
-  const keplr = await getKeplrFromWindow()
+  switch (walletType) {
+    case 'keplr':
+      window.wallet = window.keplr
+      break
+    case 'leap':
+      window.wallet = window.leap
+      break
+  }
 
-  if (!keplr) {
+  const wallet = window.wallet
+
+  if (!wallet) {
     return null
   }
   // @ts-ignore
-  if (window.keplr) {
+  if (window.wallet) {
     // @ts-ignore
-    window.keplr.defaultOptions = {
+    window.wallet.defaultOptions = {
       sign: {
         preferNoSetFee: true,
       },
     }
   }
-  const walletInfo = await keplr.getKey(chainId)
+  const walletInfo = await wallet.getKey(chainId)
 
   return {
     address: walletInfo.bech32Address,

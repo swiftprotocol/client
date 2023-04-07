@@ -1,2 +1,2 @@
 import { WalletInfo } from './types.js';
-export default function getWallet(chainId: string): Promise<WalletInfo | null>;
+export default function getWallet(chainId: string, walletType: 'keplr' | 'leap'): Promise<WalletInfo | null>;
