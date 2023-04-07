@@ -29,7 +29,7 @@ export declare class SwiftClient {
     connect(): Promise<void>;
     connectSigning(walletType: 'keplr' | 'leap'): Promise<import("./wallet/types.js").WalletInfo>;
     disconnectSigning(): Promise<void>;
-    connectSigningClient(): Promise<SigningCosmWasmClient>;
+    connectSigningClient(walletType: 'keplr' | 'leap'): Promise<SigningCosmWasmClient>;
     private createCommerceClient;
     private createTrustClient;
     get cosmWasmClient(): CosmWasmClient;

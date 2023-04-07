@@ -9,37 +9,46 @@ import {
   // createWasmAminoConverters,
   SigningCosmWasmClient,
 } from '@cosmjs/cosmwasm-stargate'
-import { getKeplrFromWindow } from '@keplr-wallet/stores'
 import { gasPrice } from '../config/gas.js'
 import type { ChainInfo } from '@keplr-wallet/types'
 
 export default async function getSigningCosmWasmClient(
-  chainInfo: ChainInfo
+  chainInfo: ChainInfo,
+  walletType: 'keplr' | 'leap'
 ): Promise<SigningCosmWasmClient | null> {
   if (!chainInfo) {
     throw new Error('No Chain Info provided to connect CosmWasmClient')
   }
 
-  const keplr = await getKeplrFromWindow()
+  switch (walletType) {
+    case 'keplr':
+      window.wallet = window.keplr
+      break
+    case 'leap':
+      window.wallet = window.leap
+      break
+  }
 
-  if (!keplr) {
-    throw new Error('Keplr not available.')
+  const wallet = window.wallet
+
+  if (!wallet) {
+    throw new Error('Wallet not available.')
   }
 
   // @ts-ignore
-  if (window.keplr) {
+  if (window.wallet) {
     // @ts-ignore
-    window.keplr.defaultOptions = {
+    window.wallet.defaultOptions = {
       sign: {
         preferNoSetFee: true,
       },
     }
   }
-  await keplr.experimentalSuggestChain(chainInfo)
-  await keplr.enable(chainInfo.chainId)
+  await wallet.experimentalSuggestChain(chainInfo)
+  await wallet.enable(chainInfo.chainId)
 
   // get offline signer for signing txs
-  const offlineSigner = await keplr.getOfflineSignerAuto(chainInfo.chainId)
+  const offlineSigner = await wallet.getOfflineSignerAuto(chainInfo.chainId)
 
   // make client
 

@@ -68,7 +68,7 @@ export class SwiftClient {
 
   public async connectSigning(walletType: 'keplr' | 'leap') {
     try {
-      await this.connectSigningClient()
+      await this.connectSigningClient(walletType)
 
       if (!this.cosmWasmClient) throw new Error('Could not load CosmWasmClient')
 
@@ -94,8 +94,11 @@ export class SwiftClient {
     await this.createTrustClient()
   }
 
-  public async connectSigningClient() {
-    this.signingCosmWasmClient = await getSigningCosmWasmClient(this.chainInfo)
+  public async connectSigningClient(walletType: 'keplr' | 'leap') {
+    this.signingCosmWasmClient = await getSigningCosmWasmClient(
+      this.chainInfo,
+      walletType
+    )
     return this.signingCosmWasmClient
   }
 

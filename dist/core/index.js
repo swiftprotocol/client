@@ -37,7 +37,7 @@ export class SwiftClient {
     connectSigning(walletType) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                yield this.connectSigningClient();
+                yield this.connectSigningClient(walletType);
                 if (!this.cosmWasmClient)
                     throw new Error('Could not load CosmWasmClient');
                 if (!this.signingCosmWasmClient)
@@ -61,9 +61,9 @@ export class SwiftClient {
             yield this.createTrustClient();
         });
     }
-    connectSigningClient() {
+    connectSigningClient(walletType) {
         return __awaiter(this, void 0, void 0, function* () {
-            this.signingCosmWasmClient = yield getSigningCosmWasmClient(this.chainInfo);
+            this.signingCosmWasmClient = yield getSigningCosmWasmClient(this.chainInfo, walletType);
             return this.signingCosmWasmClient;
         });
     }
