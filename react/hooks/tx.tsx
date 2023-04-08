@@ -14,6 +14,7 @@ export interface Msg {
 
 export interface TxOptions {
   gas?: number
+  denom?: string
   toast?: {
     title?: ToastPayload['title']
     message?: ToastPayload['message']
@@ -41,7 +42,7 @@ export function TxProvider({ children }: { children: ReactNode }) {
   const tx = async (msgs: Msg[], options: TxOptions, callback?: () => void) => {
     // Gas config
     const fee = {
-      amount: coins(0, 'ustars'),
+      amount: coins(0, options.denom || 'ujuno'),
       gas: options.gas ? String(options.gas) : '666666',
     }
 
