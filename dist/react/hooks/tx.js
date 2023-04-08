@@ -28,7 +28,7 @@ export function TxProvider({ children }) {
         var _a, _b;
         // Gas config
         const fee = {
-            amount: coins(options.coinAmount || 1167, options.denom || 'ujuno'),
+            amount: coins(options.coinAmount || 1667, options.denom || 'ujuno'),
             gas: options.gas ? String(options.gas) : '666666',
         };
         let signed;
