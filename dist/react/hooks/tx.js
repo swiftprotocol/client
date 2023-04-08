@@ -28,7 +28,7 @@ export function TxProvider({ children }) {
         var _a, _b;
         // Gas config
         const fee = {
-            amount: coins(0, options.denom || 'ujuno'),
+            amount: coins(options.coinAmount || 1167, options.denom || 'ujuno'),
             gas: options.gas ? String(options.gas) : '666666',
         };
         let signed;
@@ -37,14 +37,7 @@ export function TxProvider({ children }) {
                 signed = yield (signingCosmWasmClient === null || signingCosmWasmClient === void 0 ? void 0 : signingCosmWasmClient.sign((_b = client === null || client === void 0 ? void 0 : client.wallet) === null || _b === void 0 ? void 0 : _b.address, msgs, fee, ''));
             }
         }
-        catch (e) {
-            toaster.toast({
-                title: 'Error',
-                dismissable: true,
-                message: e.message,
-                type: ToastTypes.Error,
-            });
-        }
+        catch (e) { }
         let broadcastToastId = '';
         broadcastToastId = toaster.toast({
             title: 'Broadcasting transaction...',
