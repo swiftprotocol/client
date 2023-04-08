@@ -37,8 +37,12 @@ export class SwiftClient {
   public api: Awaited<
     ReturnType<typeof juno.ClientFactory.createLCDClient>
   > | null = null
+
   public osmosisClient: Awaited<
     ReturnType<typeof osmosis.ClientFactory.createRPCQueryClient>
+  > | null = null
+  public junoClient: Awaited<
+    ReturnType<typeof juno.ClientFactory.createRPCQueryClient>
   > | null = null
 
   public commerceClient: CommerceQueryClient | null = null
@@ -72,7 +76,11 @@ export class SwiftClient {
     this.api = await juno.ClientFactory.createLCDClient({
       restEndpoint: this.chainInfo.rest,
     })
+
     this.osmosisClient = await osmosis.ClientFactory.createRPCQueryClient({
+      rpcEndpoint: this.chainInfo.rpc,
+    })
+    this.junoClient = await juno.ClientFactory.createRPCQueryClient({
       rpcEndpoint: this.chainInfo.rpc,
     })
 

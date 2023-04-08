@@ -18,6 +18,7 @@ export class SwiftClient {
         this.signingCosmWasmClient = null;
         this.api = null;
         this.osmosisClient = null;
+        this.junoClient = null;
         this.commerceClient = null;
         this.signingCommerceClient = null;
         this.trustClient = null;
@@ -37,6 +38,9 @@ export class SwiftClient {
                 restEndpoint: this.chainInfo.rest,
             });
             this.osmosisClient = yield osmosis.ClientFactory.createRPCQueryClient({
+                rpcEndpoint: this.chainInfo.rpc,
+            });
+            this.junoClient = yield juno.ClientFactory.createRPCQueryClient({
                 rpcEndpoint: this.chainInfo.rpc,
             });
             yield this.createCommerceClient();

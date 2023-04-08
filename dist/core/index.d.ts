@@ -20,6 +20,7 @@ export declare class SwiftClient {
     signingCosmWasmClient: SigningCosmWasmClient | null;
     api: Awaited<ReturnType<typeof juno.ClientFactory.createLCDClient>> | null;
     osmosisClient: Awaited<ReturnType<typeof osmosis.ClientFactory.createRPCQueryClient>> | null;
+    junoClient: Awaited<ReturnType<typeof juno.ClientFactory.createRPCQueryClient>> | null;
     commerceClient: CommerceQueryClient | null;
     signingCommerceClient: CommerceClient | null;
     trustClient: TrustQueryClient | null;
