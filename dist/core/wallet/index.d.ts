@@ -11,13 +11,13 @@ export default class Wallet {
         commerceContract: string;
         chainId: string;
     });
-    getBalance(): Promise<import("cosmwasm").Coin>;
+    getBalance(): Promise<import("@cosmjs/amino").Coin>;
     getDenom(): Promise<string>;
     getWallet(walletType: 'keplr' | 'leap'): Promise<WalletInfo>;
     get wallet(): WalletInfo | null;
     get address(): string;
     get name(): string;
-    get balance(): import("cosmwasm").Coin;
+    get balance(): import("@cosmjs/amino").Coin;
     get denom(): string;
     set address(address: string);
 }
