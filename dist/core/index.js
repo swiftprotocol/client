@@ -11,12 +11,13 @@ import getCosmWasmClient from './cosmwasm/getCosmWasmClient.js';
 import { CommerceClient, CommerceQueryClient, TrustClient, TrustQueryClient, } from '@swiftprotocol/types';
 import getSigningCosmWasmClient from './cosmwasm/getSigningCosmWasmClient.js';
 import Wallet from './wallet/index.js';
-import { juno } from 'juno-network';
+import { juno, osmosis } from 'juno-network';
 export class SwiftClient {
     constructor({ chainInfo, commerceContract, trustContract, }) {
         this._cosmWasmClient = null;
         this.signingCosmWasmClient = null;
         this.api = null;
+        this.osmosisClient = null;
         this.commerceClient = null;
         this.signingCommerceClient = null;
         this.trustClient = null;
@@ -34,6 +35,9 @@ export class SwiftClient {
             this._cosmWasmClient = yield getCosmWasmClient(this.chainInfo.rpc);
             this.api = yield juno.ClientFactory.createLCDClient({
                 restEndpoint: this.chainInfo.rest,
+            });
+            this.osmosisClient = yield osmosis.ClientFactory.createRPCQueryClient({
+                rpcEndpoint: this.chainInfo.rpc,
             });
             yield this.createCommerceClient();
             yield this.createTrustClient();

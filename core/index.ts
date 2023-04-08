@@ -14,7 +14,7 @@ import {
 } from '@swiftprotocol/types'
 import getSigningCosmWasmClient from './cosmwasm/getSigningCosmWasmClient.js'
 import Wallet from './wallet/index.js'
-import { juno } from 'juno-network'
+import { juno, osmosis } from 'juno-network'
 
 declare global {
   interface Window {
@@ -36,6 +36,9 @@ export class SwiftClient {
 
   public api: Awaited<
     ReturnType<typeof juno.ClientFactory.createLCDClient>
+  > | null = null
+  public osmosisClient: Awaited<
+    ReturnType<typeof osmosis.ClientFactory.createRPCQueryClient>
   > | null = null
 
   public commerceClient: CommerceQueryClient | null = null
@@ -69,6 +72,10 @@ export class SwiftClient {
     this.api = await juno.ClientFactory.createLCDClient({
       restEndpoint: this.chainInfo.rest,
     })
+    this.osmosisClient = await osmosis.ClientFactory.createRPCQueryClient({
+      rpcEndpoint: this.chainInfo.rpc,
+    })
+
     await this.createCommerceClient()
     await this.createTrustClient()
   }

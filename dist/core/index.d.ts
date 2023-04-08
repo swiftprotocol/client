@@ -2,7 +2,7 @@ import type { ChainInfo, Keplr } from '@keplr-wallet/types';
 import type { CosmWasmClient, SigningCosmWasmClient } from '@cosmjs/cosmwasm-stargate';
 import { CommerceClient, CommerceQueryClient, TrustClient, TrustQueryClient } from '@swiftprotocol/types';
 import Wallet from './wallet/index.js';
-import { juno } from 'juno-network';
+import { juno, osmosis } from 'juno-network';
 declare global {
     interface Window {
         wallet: Keplr;
@@ -19,6 +19,7 @@ export declare class SwiftClient {
     private _cosmWasmClient;
     signingCosmWasmClient: SigningCosmWasmClient | null;
     api: Awaited<ReturnType<typeof juno.ClientFactory.createLCDClient>> | null;
+    osmosisClient: Awaited<ReturnType<typeof osmosis.ClientFactory.createRPCQueryClient>> | null;
     commerceClient: CommerceQueryClient | null;
     signingCommerceClient: CommerceClient | null;
     trustClient: TrustQueryClient | null;
