@@ -6,6 +6,7 @@ export interface Msg {
 }
 export interface TxOptions {
     gas?: number;
+    denom?: string;
     toast?: {
         title?: ToastPayload['title'];
         message?: ToastPayload['message'];

@@ -15,6 +15,7 @@ export interface Msg {
 export interface TxOptions {
   gas?: number
   denom?: string
+  coinAmount?: number
   toast?: {
     title?: ToastPayload['title']
     message?: ToastPayload['message']
@@ -42,7 +43,7 @@ export function TxProvider({ children }: { children: ReactNode }) {
   const tx = async (msgs: Msg[], options: TxOptions, callback?: () => void) => {
     // Gas config
     const fee = {
-      amount: coins(0, options.denom || 'ujuno'),
+      amount: coins(options.coinAmount || 1167, options.denom || 'ujuno'),
       gas: options.gas ? String(options.gas) : '666666',
     }
 
@@ -56,14 +57,7 @@ export function TxProvider({ children }: { children: ReactNode }) {
           ''
         )
       }
-    } catch (e) {
-      toaster.toast({
-        title: 'Error',
-        dismissable: true,
-        message: (e as Error).message as string,
-        type: ToastTypes.Error,
-      })
-    }
+    } catch (e) {}
 
     let broadcastToastId = ''
 
