@@ -8,9 +8,6 @@ export default function WalletProvider({ children }: { children: ReactNode }) {
   const [wallet, setWallet] = useState<WalletInfo>()
 
   const logout = useCallback(async () => {
-    localStorage.removeItem('address')
-    localStorage.removeItem('walletName')
-    localStorage.removeItem('walletType')
     setWallet(undefined)
     await client?.disconnectSigning()
   }, [client])
@@ -22,10 +19,7 @@ export default function WalletProvider({ children }: { children: ReactNode }) {
       await connectSigning(walletType)
 
       const w = client?.wallet
-      if (w?.wallet) {
-        setWallet(w.wallet)
-        localStorage.setItem('walletType', walletType)
-      }
+      if (w?.wallet) setWallet(w.wallet)
     },
     [client, connectSigning]
   )
@@ -37,9 +31,7 @@ export default function WalletProvider({ children }: { children: ReactNode }) {
         'Key store in Keplr is changed. You may need to refetch the account info.'
       )
 
-      logout().then(() => {
-        login('keplr')
-      })
+      logout()
     })
   }, [login, logout])
 
@@ -50,44 +42,9 @@ export default function WalletProvider({ children }: { children: ReactNode }) {
         'Key store in Leap is changed. You may need to refetch the account info.'
       )
 
-      logout().then(() => {
-        login('leap')
-      })
+      logout()
     })
   }, [login, logout])
-
-  // Auto-login if in localstorage:
-  useEffect(() => {
-    async function loadLocalWallet() {
-      const address = localStorage.getItem('address')
-      const name = localStorage.getItem('walletName')
-      const type = localStorage.getItem('walletType')
-
-      if (client && address && name) {
-        await client?.connect()
-        client.wallet.address = address
-        const balance = await client.wallet.getBalance()
-
-        setWallet({
-          address,
-          name,
-          balance,
-        })
-
-        connectSigning(type as 'keplr' | 'leap')
-        return
-      }
-    }
-
-    loadLocalWallet()
-  }, [client, connectSigning])
-
-  useEffect(() => {
-    if (wallet && wallet.address && wallet.name) {
-      localStorage.setItem('address', wallet.address)
-      localStorage.setItem('walletName', wallet.name)
-    }
-  }, [wallet])
 
   async function refreshBalance() {
     const newBalance = await client?.wallet?.getBalance()

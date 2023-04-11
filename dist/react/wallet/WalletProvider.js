@@ -15,9 +15,6 @@ export default function WalletProvider({ children }) {
     const { client, connectSigning } = useSwiftClient();
     const [wallet, setWallet] = useState();
     const logout = useCallback(() => __awaiter(this, void 0, void 0, function* () {
-        localStorage.removeItem('address');
-        localStorage.removeItem('walletName');
-        localStorage.removeItem('walletType');
         setWallet(undefined);
         yield (client === null || client === void 0 ? void 0 : client.disconnectSigning());
     }), [client]);
@@ -26,58 +23,23 @@ export default function WalletProvider({ children }) {
         yield (client === null || client === void 0 ? void 0 : client.connect());
         yield connectSigning(walletType);
         const w = client === null || client === void 0 ? void 0 : client.wallet;
-        if (w === null || w === void 0 ? void 0 : w.wallet) {
+        if (w === null || w === void 0 ? void 0 : w.wallet)
             setWallet(w.wallet);
-            localStorage.setItem('walletType', walletType);
-        }
     }), [client, connectSigning]);
     // Keplr Wallet Changed
     useEffect(() => {
         window.addEventListener('keplr_keystorechange', () => {
             console.log('Key store in Keplr is changed. You may need to refetch the account info.');
-            logout().then(() => {
-                login('keplr');
-            });
+            logout();
         });
     }, [login, logout]);
     // Leap Wallet Changed
     useEffect(() => {
         window.addEventListener('leap_keystorechange', () => {
             console.log('Key store in Leap is changed. You may need to refetch the account info.');
-            logout().then(() => {
-                login('leap');
-            });
+            logout();
         });
     }, [login, logout]);
-    // Auto-login if in localstorage:
-    useEffect(() => {
-        function loadLocalWallet() {
-            return __awaiter(this, void 0, void 0, function* () {
-                const address = localStorage.getItem('address');
-                const name = localStorage.getItem('walletName');
-                const type = localStorage.getItem('walletType');
-                if (client && address && name) {
-                    yield (client === null || client === void 0 ? void 0 : client.connect());
-                    client.wallet.address = address;
-                    const balance = yield client.wallet.getBalance();
-                    setWallet({
-                        address,
-                        name,
-                        balance,
-                    });
-                    connectSigning(type);
-                    return;
-                }
-            });
-        }
-        loadLocalWallet();
-    }, [client, connectSigning]);
-    useEffect(() => {
-        if (wallet && wallet.address && wallet.name) {
-            localStorage.setItem('address', wallet.address);
-            localStorage.setItem('walletName', wallet.name);
-        }
-    }, [wallet]);
     function refreshBalance() {
         var _a, _b;
         return __awaiter(this, void 0, void 0, function* () {
