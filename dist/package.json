@@ -1,6 +1,6 @@
 {
 	"name": "@swiftprotocol/client",
-	"version": "0.5.13",
+	"version": "0.5.14",
 	"description": "Multipurpose query & execution client for Swift Protocol contracts.",
 	"type": "module",
 	"main": "index.js",
