@@ -111,6 +111,7 @@ export class SwiftClient {
   public async disconnectSigning() {
     this.signingCosmWasmClient?.disconnect()
     this._wallet = null
+    window.wallet = null
 
     await this.createCommerceClient()
     await this.createTrustClient()

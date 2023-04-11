@@ -70,6 +70,7 @@ export class SwiftClient {
         return __awaiter(this, void 0, void 0, function* () {
             (_a = this.signingCosmWasmClient) === null || _a === void 0 ? void 0 : _a.disconnect();
             this._wallet = null;
+            window.wallet = null;
             yield this.createCommerceClient();
             yield this.createTrustClient();
         });

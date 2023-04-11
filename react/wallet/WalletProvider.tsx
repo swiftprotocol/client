@@ -17,6 +17,7 @@ export default function WalletProvider({ children }: { children: ReactNode }) {
 
   const login = useCallback(
     async (walletType: 'keplr' | 'leap') => {
+      await logout()
       await client?.connect()
       await connectSigning(walletType)
 

@@ -22,6 +22,7 @@ export default function WalletProvider({ children }) {
         yield (client === null || client === void 0 ? void 0 : client.disconnectSigning());
     }), [client]);
     const login = useCallback((walletType) => __awaiter(this, void 0, void 0, function* () {
+        yield logout();
         yield (client === null || client === void 0 ? void 0 : client.connect());
         yield connectSigning(walletType);
         const w = client === null || client === void 0 ? void 0 : client.wallet;
