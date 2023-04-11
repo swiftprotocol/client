@@ -12,34 +12,34 @@ import { useCallback, useEffect, useState } from 'react';
 import useSwiftClient from '../client/useSwiftClient.js';
 import WalletContext from './WalletContext.js';
 export default function WalletProvider({ children }) {
-    const { client, connectSigning } = useSwiftClient();
+    const { client } = useSwiftClient();
     const [wallet, setWallet] = useState();
     const logout = useCallback(() => __awaiter(this, void 0, void 0, function* () {
         setWallet(undefined);
         yield (client === null || client === void 0 ? void 0 : client.disconnectSigning());
     }), [client]);
     const login = useCallback((walletType) => __awaiter(this, void 0, void 0, function* () {
-        yield logout();
         yield (client === null || client === void 0 ? void 0 : client.connect());
-        yield connectSigning(walletType);
+        yield (client === null || client === void 0 ? void 0 : client.connectSigning(walletType));
         const w = client === null || client === void 0 ? void 0 : client.wallet;
         if (w === null || w === void 0 ? void 0 : w.wallet)
             setWallet(w.wallet);
-    }), [client, connectSigning]);
+        return w.wallet;
+    }), [client]);
     // Keplr Wallet Changed
     useEffect(() => {
         window.addEventListener('keplr_keystorechange', () => {
             console.log('Key store in Keplr is changed. You may need to refetch the account info.');
             logout();
         });
-    }, [login, logout]);
+    }, [logout]);
     // Leap Wallet Changed
     useEffect(() => {
         window.addEventListener('leap_keystorechange', () => {
             console.log('Key store in Leap is changed. You may need to refetch the account info.');
             logout();
         });
-    }, [login, logout]);
+    }, [logout]);
     function refreshBalance() {
         var _a, _b;
         return __awaiter(this, void 0, void 0, function* () {

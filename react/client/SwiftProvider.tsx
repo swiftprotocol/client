@@ -17,10 +17,9 @@ export default function SwiftProvider({
 
   const connectSigning = useCallback(
     async (walletType: 'keplr' | 'leap') => {
-      if (client) {
-        await client?.connectSigning(walletType)
-        forceUpdate()
-      }
+      if (!client) return
+      await client?.connectSigning(walletType)
+      forceUpdate()
     },
     [client, forceUpdate]
   )

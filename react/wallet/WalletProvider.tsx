@@ -4,7 +4,7 @@ import useSwiftClient from '../client/useSwiftClient.js'
 import WalletContext from './WalletContext.js'
 
 export default function WalletProvider({ children }: { children: ReactNode }) {
-  const { client, connectSigning } = useSwiftClient()
+  const { client } = useSwiftClient()
   const [wallet, setWallet] = useState<WalletInfo>()
 
   const logout = useCallback(async () => {
@@ -14,14 +14,15 @@ export default function WalletProvider({ children }: { children: ReactNode }) {
 
   const login = useCallback(
     async (walletType: 'keplr' | 'leap') => {
-      await logout()
       await client?.connect()
-      await connectSigning(walletType)
+      await client?.connectSigning(walletType)
 
       const w = client?.wallet
       if (w?.wallet) setWallet(w.wallet)
+
+      return w.wallet
     },
-    [client, connectSigning]
+    [client]
   )
 
   // Keplr Wallet Changed
@@ -33,7 +34,7 @@ export default function WalletProvider({ children }: { children: ReactNode }) {
 
       logout()
     })
-  }, [login, logout])
+  }, [logout])
 
   // Leap Wallet Changed
   useEffect(() => {
@@ -44,7 +45,7 @@ export default function WalletProvider({ children }: { children: ReactNode }) {
 
       logout()
     })
-  }, [login, logout])
+  }, [logout])
 
   async function refreshBalance() {
     const newBalance = await client?.wallet?.getBalance()

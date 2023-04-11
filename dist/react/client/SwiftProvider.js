@@ -17,10 +17,10 @@ export default function SwiftProvider({ client, children, }) {
     const [, updateState] = useState();
     const forceUpdate = useCallback(() => updateState({}), []);
     const connectSigning = useCallback((walletType) => __awaiter(this, void 0, void 0, function* () {
-        if (client) {
-            yield (client === null || client === void 0 ? void 0 : client.connectSigning(walletType));
-            forceUpdate();
-        }
+        if (!client)
+            return;
+        yield (client === null || client === void 0 ? void 0 : client.connectSigning(walletType));
+        forceUpdate();
     }), [client, forceUpdate]);
     // Connect client
     useEffect(() => {

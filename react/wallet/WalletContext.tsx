@@ -3,14 +3,14 @@ import { WalletInfo } from '../../core/wallet/types.js'
 
 type WalletContextValue = {
   wallet?: WalletInfo
-  login: (walletType: 'keplr' | 'leap') => void
+  login: (walletType: 'keplr' | 'leap') => Promise<WalletInfo | void>
   logout: () => void
   refreshBalance: () => void
 }
 
 const WalletContext = React.createContext<WalletContextValue>({
   wallet: undefined,
-  login: () => {},
+  login: async () => {},
   logout: () => {},
   refreshBalance: () => {},
 })

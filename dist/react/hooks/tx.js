@@ -19,35 +19,45 @@ export const Tx = createContext({
     tx: () => new Promise(() => { }),
 });
 export function TxProvider({ children }) {
-    const { client } = useSwiftClient();
+    const { client, connectSigning } = useSwiftClient();
     const { refreshBalance } = useWallet();
-    const signingCosmWasmClient = client === null || client === void 0 ? void 0 : client.signingCosmWasmClient;
     const toaster = useToaster();
     // Method to sign & broadcast transaction
     const tx = (msgs, options, callback) => __awaiter(this, void 0, void 0, function* () {
-        var _a, _b;
+        var _a;
         // Gas config
         const fee = {
             amount: coins(options.coinAmount || 1667, options.denom || 'ujuno'),
             gas: options.gas ? String(options.gas) : '666666',
         };
+        if (options.walletType)
+            yield connectSigning(options.walletType);
+        console.log(client === null || client === void 0 ? void 0 : client.wallet.wallet.address);
+        console.log(client === null || client === void 0 ? void 0 : client.signingCosmWasmClient);
         let signed;
         try {
-            if ((_a = client === null || client === void 0 ? void 0 : client.wallet) === null || _a === void 0 ? void 0 : _a.address) {
-                signed = yield (signingCosmWasmClient === null || signingCosmWasmClient === void 0 ? void 0 : signingCosmWasmClient.sign((_b = client === null || client === void 0 ? void 0 : client.wallet) === null || _b === void 0 ? void 0 : _b.address, msgs, fee, ''));
+            if (client === null || client === void 0 ? void 0 : client.wallet.wallet.address) {
+                signed = yield ((_a = client === null || client === void 0 ? void 0 : client.signingCosmWasmClient) === null || _a === void 0 ? void 0 : _a.sign(client === null || client === void 0 ? void 0 : client.wallet.wallet.address, msgs, fee, ''));
             }
         }
-        catch (e) { }
+        catch (e) {
+            console.log(e);
+            return toaster.toast({
+                title: 'Error',
+                message: e.message,
+                type: ToastTypes.Error,
+            });
+        }
+        console.log(signed);
         let broadcastToastId = '';
         broadcastToastId = toaster.toast({
             title: 'Broadcasting transaction...',
             type: ToastTypes.Pending,
         }, { duration: 999999 });
-        if (signingCosmWasmClient && signed) {
-            yield signingCosmWasmClient
-                .broadcastTx(Uint8Array.from(TxRaw.encode(signed).finish()))
-                .then((res) => {
+        if ((client === null || client === void 0 ? void 0 : client.signingCosmWasmClient) && signed) {
+            yield (client === null || client === void 0 ? void 0 : client.signingCosmWasmClient.broadcastTx(Uint8Array.from(TxRaw.encode(signed).finish())).then((res) => {
                 var _a, _b, _c, _d;
+                console.log(res);
                 toaster.dismiss(broadcastToastId);
                 if (isDeliverTxSuccess(res)) {
                     // Run callback
@@ -70,7 +80,7 @@ export function TxProvider({ children }) {
                         type: ToastTypes.Error,
                     });
                 }
-            });
+            }));
         }
         else {
             toaster.dismiss(broadcastToastId);

@@ -9,12 +9,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 export default function getWallet(chainId, walletType) {
     return __awaiter(this, void 0, void 0, function* () {
+        window.wallet = null;
         switch (walletType) {
             case 'keplr':
-                window.wallet = window.keplr;
+                if ('keplr' in window)
+                    window.wallet = window.keplr;
                 break;
             case 'leap':
-                window.wallet = window.leap;
+                if ('leap' in window)
+                    window.wallet = window.leap;
                 break;
         }
         const wallet = window.wallet;

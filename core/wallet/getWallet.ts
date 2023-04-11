@@ -4,12 +4,14 @@ export default async function getWallet(
   chainId: string,
   walletType: 'keplr' | 'leap'
 ): Promise<WalletInfo | null> {
+  window.wallet = null
+
   switch (walletType) {
     case 'keplr':
-      window.wallet = window.keplr
+      if ('keplr' in window) window.wallet = window.keplr
       break
     case 'leap':
-      window.wallet = window.leap
+      if ('leap' in window) window.wallet = window.leap
       break
   }
 

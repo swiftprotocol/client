@@ -16,6 +16,7 @@ export interface TxOptions {
   gas?: number
   denom?: string
   coinAmount?: number
+  walletType?: 'keplr' | 'leap'
   toast?: {
     title?: ToastPayload['title']
     message?: ToastPayload['message']
@@ -33,9 +34,8 @@ export const Tx = createContext<TxContext>({
 })
 
 export function TxProvider({ children }: { children: ReactNode }) {
-  const { client } = useSwiftClient()
+  const { client, connectSigning } = useSwiftClient()
   const { refreshBalance } = useWallet()
-  const signingCosmWasmClient = client?.signingCosmWasmClient
 
   const toaster = useToaster()
 
@@ -47,17 +47,26 @@ export function TxProvider({ children }: { children: ReactNode }) {
       gas: options.gas ? String(options.gas) : '666666',
     }
 
+    if (options.walletType) await connectSigning(options.walletType)
+
     let signed
     try {
-      if (client?.wallet?.address) {
-        signed = await signingCosmWasmClient?.sign(
-          client?.wallet?.address,
+      if (client?.wallet.wallet.address) {
+        signed = await client?.signingCosmWasmClient?.sign(
+          client?.wallet.wallet.address,
           msgs,
           fee,
           ''
         )
       }
-    } catch (e) {}
+    } catch (e) {
+      console.log(e)
+      return toaster.toast({
+        title: 'Error',
+        message: e.message,
+        type: ToastTypes.Error,
+      })
+    }
 
     let broadcastToastId = ''
 
@@ -69,8 +78,8 @@ export function TxProvider({ children }: { children: ReactNode }) {
       { duration: 999999 }
     )
 
-    if (signingCosmWasmClient && signed) {
-      await signingCosmWasmClient
+    if (client?.signingCosmWasmClient && signed) {
+      await client?.signingCosmWasmClient
         .broadcastTx(Uint8Array.from(TxRaw.encode(signed).finish()))
         .then((res) => {
           toaster.dismiss(broadcastToastId)
